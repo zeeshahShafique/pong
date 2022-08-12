@@ -1,10 +1,7 @@
-using System;
-using _Pong.Scripts;
-using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class BallSpawner : MonoBehaviour, ISpawnBall
+public class BallSpawner : MonoBehaviour
 {
     private Rigidbody2D _rd2;
     [SerializeField] private GameObject _Ball;
@@ -15,11 +12,12 @@ public class BallSpawner : MonoBehaviour, ISpawnBall
     void OnEnable()
     {
         _rd2 = _Ball.GetComponent<Rigidbody2D>();
-        // SpawnBall();
+        TapToStartScreen.StartScreenTapped.AddListener(SpawnBall);
     }
 
     private void OnDisable()
     {
+        TapToStartScreen.StartScreenTapped.RemoveListener(SpawnBall);
         if (_Ball)
             _Ball.transform.position = Vector3.zero;
     }
@@ -33,6 +31,6 @@ public class BallSpawner : MonoBehaviour, ISpawnBall
         }
 
         int directionY = Random.Range(_RangeMin, _RangeMax);
-        _rd2.AddForce(new Vector2(20 * side, directionY * side));
+        _rd2.AddForce(new Vector2(20 * side, directionY * side) * 0.75f);
     }
 }

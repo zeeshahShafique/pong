@@ -1,21 +1,14 @@
-using System;
-using _Pong.Scripts;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 public class TapToStartScreen : MonoBehaviour, IPointerDownHandler
 {
-    private ISpawnBall _ballSpawner;
-
-    private void OnEnable()
-    {
-        _ballSpawner = FindObjectOfType<BallSpawner>().GetComponent<ISpawnBall>();
-    }
+    public static UnityEvent StartScreenTapped = new UnityEvent();
 
     public virtual void OnPointerDown(PointerEventData eventData)
     {
         gameObject.SetActive(false);
-        _ballSpawner.SpawnBall();
+        StartScreenTapped.Invoke();
     }
     
 }
