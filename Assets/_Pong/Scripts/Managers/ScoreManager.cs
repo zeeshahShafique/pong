@@ -1,3 +1,5 @@
+using System;
+using Newtonsoft.Json.Bson;
 using TMPro;
 using UnityEngine;
 
@@ -9,16 +11,28 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _playerScoreText;
     [SerializeField] private TextMeshProUGUI _aiScoreText;
 
-    public int PlayerScore
+    private void OnEnable()
     {
-        get => _playerScore;
-        set => _playerScore = value;
+        GoalPost.OnPlayerScored += PlayerScored;
+        GoalPost.OnAIScored += AIScored;
+    }
+    
+    private void OnDisable()
+    {
+        GoalPost.OnPlayerScored -= PlayerScored;
+        GoalPost.OnAIScored -= AIScored;
     }
 
-    public int AIScore
+    private void PlayerScored()
     {
-        get => _aiScore;
-        set => _aiScore = value;
+        _playerScore++;
+        SetPlayerScoreText();
+    }
+    
+    private void AIScored()
+    {
+        _aiScore++;
+        SetAIScoreText();
     }
 
     private void SetPlayerScoreText()

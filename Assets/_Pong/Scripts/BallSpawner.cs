@@ -22,7 +22,7 @@ public class BallSpawner : MonoBehaviour
             _Ball.transform.position = Vector3.zero;
     }
 
-    public virtual void SpawnBall()
+    public void SpawnBall()
     {
         int side = Random.Range(0, 2);
         if (side < 1)
