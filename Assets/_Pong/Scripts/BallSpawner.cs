@@ -31,6 +31,6 @@ public class BallSpawner : MonoBehaviour
         }
 
         int directionY = Random.Range(_RangeMin, _RangeMax);
-        _rd2.AddForce(new Vector2(20 * side, directionY * side) * 0.75f);
+        _rd2.AddForce(new Vector2(20 * side, directionY * side));
     }
 }
