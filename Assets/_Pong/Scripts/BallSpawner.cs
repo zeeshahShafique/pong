@@ -16,6 +16,8 @@ public class BallSpawner : MonoBehaviour
         TapToStartScreen.StartScreenTapped.AddListener(SpawnBall);
         GoalPost.OnPlayerScored += GoalScored;
         GoalPost.OnAIScored += GoalScored;
+        GameManager.OnPlayerWon += DisableBall;
+        GameManager.OnAIWon += DisableBall;
     }
 
     private void OnDisable()
@@ -23,6 +25,8 @@ public class BallSpawner : MonoBehaviour
         TapToStartScreen.StartScreenTapped.RemoveListener(SpawnBall);
         GoalPost.OnPlayerScored -= GoalScored;
         GoalPost.OnAIScored -= GoalScored;
+        GameManager.OnPlayerWon -= DisableBall;
+        GameManager.OnAIWon -= DisableBall;
     }
 
     public void SpawnBall()
@@ -50,5 +54,10 @@ public class BallSpawner : MonoBehaviour
     {
         Invoke(nameof(ResetBall), 1f);
         Invoke(nameof(SpawnBall), 1f);
+    }
+
+    private void DisableBall()
+    {
+        _Ball.SetActive(false);
     }
 }

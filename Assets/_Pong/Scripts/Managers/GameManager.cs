@@ -34,12 +34,10 @@ public class GameManager : MonoBehaviour
     {
         if (_ScoreManager.GetPlayerScore() >= _WinningScore)
         {
-            _BallSpawner.gameObject.SetActive(false);
             OnPlayerWon();
         }
         else if (_ScoreManager.GetAIScore() >= _WinningScore)
         {
-            _BallSpawner.gameObject.SetActive(false);
             OnAIWon();
         }
     }
