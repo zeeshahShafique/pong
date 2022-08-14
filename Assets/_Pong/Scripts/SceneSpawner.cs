@@ -18,6 +18,8 @@ public class SceneSpawner : MonoBehaviour
         _heightUnit = _Camera.orthographicSize;
         WidthUnit = _Camera.aspect * _heightUnit;
         
+        Debug.Log("Screen Width: " + WidthUnit);
+        
         SetBoundaries();
         SetPaddles();
     }
@@ -40,7 +42,11 @@ public class SceneSpawner : MonoBehaviour
     void SetPaddles()
     {
         _Paddles[1].transform.position = new Vector3(0, _heightUnit - 1);
-        
         _Paddles[0].transform.position = new Vector3(0, -_heightUnit + 1);
+
+        for (int i = 0; i < _Paddles.Length; i++)
+        {
+            _Paddles[i].transform.localScale = new Vector3(WidthUnit / 2.3f, _heightUnit / 30);
+        }
     }
 }
