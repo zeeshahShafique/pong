@@ -5,6 +5,7 @@ public class BallSpawner : MonoBehaviour
 {
     private Rigidbody2D _rd2;
     [SerializeField] private GameObject _Ball;
+    [SerializeField] private float _SpawnSpeed;
 
     [SerializeField] private int _RangeMin;
     [SerializeField] private int _RangeMax;
@@ -13,13 +14,16 @@ public class BallSpawner : MonoBehaviour
     {
         _rd2 = _Ball.GetComponent<Rigidbody2D>();
         TapToStartScreen.StartScreenTapped.AddListener(SpawnBall);
+        GoalPost.OnPlayerScored += GoalScored;
+        GoalPost.OnAIScored += GoalScored;
     }
 
     private void OnDisable()
     {
         TapToStartScreen.StartScreenTapped.RemoveListener(SpawnBall);
-        if (_Ball)
-            _Ball.transform.position = Vector3.zero;
+        GoalPost.OnPlayerScored -= GoalScored;
+        GoalPost.OnAIScored -= GoalScored;
+        ResetBall();
     }
 
     public void SpawnBall()
@@ -31,6 +35,21 @@ public class BallSpawner : MonoBehaviour
         }
 
         int directionY = Random.Range(_RangeMin, _RangeMax);
-        _rd2.AddForce(new Vector2(20 * side, directionY * side));
+        _rd2.AddForce(new Vector2(20 * side, directionY * side) * _SpawnSpeed);
+    }
+
+    private void ResetBall()
+    {
+        if (_Ball && _rd2)
+        {
+            _Ball.transform.position = Vector3.zero;
+            _rd2.velocity = Vector2.zero; 
+        }
+    }
+
+    private void GoalScored()
+    {
+        ResetBall();
+        Invoke(nameof(SpawnBall), 1f);
     }
 }

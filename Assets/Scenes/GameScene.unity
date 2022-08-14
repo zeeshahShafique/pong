@@ -2023,6 +2023,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Ball: {fileID: 1258294717}
+  _SpawnSpeed: 1
   _RangeMin: 50
   _RangeMax: 130
 --- !u!4 &1712333186
