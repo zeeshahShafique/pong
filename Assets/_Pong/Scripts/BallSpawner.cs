@@ -14,7 +14,7 @@ public class BallSpawner : MonoBehaviour
     {
         _rd2 = _Ball.GetComponent<Rigidbody2D>();
         ResetBall();
-        TapToStartScreen.StartScreenTapped.AddListener(SpawnBall);
+        TapToStartScreen.StartScreenTapped.AddListener(GoalScored);
         GoalPost.OnPlayerScored += GoalScored;
         GoalPost.OnAIScored += GoalScored;
         GameManager.OnPlayerWon += DisableBall;
@@ -23,7 +23,7 @@ public class BallSpawner : MonoBehaviour
 
     private void OnDisable()
     {
-        TapToStartScreen.StartScreenTapped.RemoveListener(SpawnBall);
+        TapToStartScreen.StartScreenTapped.RemoveListener(GoalScored);
         GoalPost.OnPlayerScored -= GoalScored;
         GoalPost.OnAIScored -= GoalScored;
         GameManager.OnPlayerWon -= DisableBall;
@@ -32,14 +32,16 @@ public class BallSpawner : MonoBehaviour
 
     public void SpawnBall()
     {
-        int side = Random.Range(0, 2);
+        var side = Random.Range(0, 2);
         if (side < 1)
         {
             side = -1;
         }
 
-        int directionY = Random.Range(_RangeMin, _RangeMax);
-        _rd2.AddForce(new Vector2(20 * side, directionY * side) * _SpawnSpeed);
+        var directionY = Random.Range(_RangeMin, _RangeMax);
+        var directionX = Random.Range(10, 70);
+        var directionVector = new Vector2(directionX * side, directionY * side).normalized;
+        _rd2.AddForce(directionVector * _SpawnSpeed);
     }
 
     private void ResetBall()

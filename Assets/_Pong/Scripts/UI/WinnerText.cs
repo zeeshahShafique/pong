@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WinnerText : MonoBehaviour
 {
@@ -30,5 +31,10 @@ public class WinnerText : MonoBehaviour
     {
         _rect.anchoredPosition = Vector2.zero;
         _winnerTMP.SetText("AI Won!");
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(0);
     }
 }
