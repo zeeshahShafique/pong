@@ -44,4 +44,14 @@ public class ScoreManager : MonoBehaviour
     {
         _aiScoreText.SetText(_aiScore.ToString());
     }
+
+    public int GetPlayerScore()
+    {
+        return _playerScore;
+    }
+
+    public int GetAIScore()
+    {
+        return _aiScore;
+    }
 }
