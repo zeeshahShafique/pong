@@ -13,6 +13,7 @@ public class BallSpawner : MonoBehaviour
     void OnEnable()
     {
         _rd2 = _Ball.GetComponent<Rigidbody2D>();
+        ResetBall();
         TapToStartScreen.StartScreenTapped.AddListener(SpawnBall);
         GoalPost.OnPlayerScored += GoalScored;
         GoalPost.OnAIScored += GoalScored;
