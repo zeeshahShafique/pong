@@ -2,20 +2,24 @@ using UnityEngine;
 
 public class AIPaddleMovement : PaddleMovement
 {
-    [SerializeField] private GameObject _ball;
+    [SerializeField] private Rigidbody2D _BallRigidbody2D;
 
     public override void MovePaddle()
     {
-        if (_ball.transform.position.y > 0f)
+        if (_BallRigidbody2D.velocity.y > 0f && _BallRigidbody2D.transform.position.y > 0)
         {
-            if (_ball.transform.position.x > transform.position.x)
+            if (_BallRigidbody2D.transform.position.x > transform.position.x)
             {
                 _Movement = Vector2.right;
             }
-            else if (_ball.transform.position.x < transform.position.x)
+            else if (_BallRigidbody2D.transform.position.x < transform.position.x)
             {
                 _Movement = Vector2.left;
             }
+        }
+        else
+        {
+            _Movement = Vector2.zero;
         }
     }
 }

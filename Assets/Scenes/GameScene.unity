@@ -1290,8 +1290,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610b39de5588743a689b2bafb8f18e4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 5
-  _ball: {fileID: 1258294717}
+  Speed: 3
+  _BallRigidbody2D: {fileID: 1258294720}
 --- !u!1 &1219949318
 GameObject:
   m_ObjectHideFlags: 0
