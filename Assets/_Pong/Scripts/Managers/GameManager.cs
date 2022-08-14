@@ -3,9 +3,11 @@ using Application = UnityEngine.Device.Application;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private SceneSpawner _sceneSpawner;
-    [SerializeField] private ScoreManager _scoreManager;
-    [SerializeField] private BallSpawner _ballSpawner;
+    [SerializeField] private SceneSpawner _SceneSpawner;
+    [SerializeField] private ScoreManager _ScoreManager;
+    [SerializeField] private BallSpawner _BallSpawner;
+
+    [SerializeField] private int _WinningScore;
 
     public delegate void AIWon();
     public static event AIWon OnAIWon;
@@ -16,29 +18,29 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Application.targetFrameRate = 60;
-        _sceneSpawner = GetComponentInChildren<SceneSpawner>();
-        _scoreManager = GetComponentInChildren<ScoreManager>();
-        _ballSpawner = GetComponentInChildren<BallSpawner>();
+        _SceneSpawner = GetComponentInChildren<SceneSpawner>();
+        _ScoreManager = GetComponentInChildren<ScoreManager>();
+        _BallSpawner = GetComponentInChildren<BallSpawner>();
     }
 
     private void Start()
     {
-        _sceneSpawner.enabled = true;
-        _scoreManager.enabled = true;
-        _ballSpawner.enabled = true;
+        _SceneSpawner.enabled = true;
+        _ScoreManager.enabled = true;
+        _BallSpawner.enabled = true;
     }
 
     private void Update()
     {
-        if (_scoreManager.GetPlayerScore() > 5)
+        if (_ScoreManager.GetPlayerScore() >= _WinningScore)
         {
+            _BallSpawner.gameObject.SetActive(false);
             OnPlayerWon();
-            _ballSpawner.enabled = false;
         }
-        else if (_scoreManager.GetAIScore() > 5)
+        else if (_ScoreManager.GetAIScore() >= _WinningScore)
         {
+            _BallSpawner.gameObject.SetActive(false);
             OnAIWon();
-            _ballSpawner.enabled = false;
         }
     }
 }

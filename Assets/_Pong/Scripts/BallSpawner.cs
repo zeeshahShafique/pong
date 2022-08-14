@@ -23,7 +23,6 @@ public class BallSpawner : MonoBehaviour
         TapToStartScreen.StartScreenTapped.RemoveListener(SpawnBall);
         GoalPost.OnPlayerScored -= GoalScored;
         GoalPost.OnAIScored -= GoalScored;
-        ResetBall();
     }
 
     public void SpawnBall()
@@ -49,7 +48,7 @@ public class BallSpawner : MonoBehaviour
 
     private void GoalScored()
     {
-        ResetBall();
+        Invoke(nameof(ResetBall), 1f);
         Invoke(nameof(SpawnBall), 1f);
     }
 }
