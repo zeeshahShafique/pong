@@ -9,6 +9,7 @@ public class TapToStartScreen : MonoBehaviour, IPointerDownHandler
     {
         gameObject.SetActive(false);
         StartScreenTapped.Invoke();
+        InputController.Enabled = true;
     }
     
 }

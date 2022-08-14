@@ -35,10 +35,12 @@ public class GameManager : MonoBehaviour
         if (_ScoreManager.GetPlayerScore() >= _WinningScore)
         {
             OnPlayerWon();
+            InputController.Enabled = false;
         }
         else if (_ScoreManager.GetAIScore() >= _WinningScore)
         {
             OnAIWon();
+            InputController.Enabled = false;
         }
     }
 }

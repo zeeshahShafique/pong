@@ -13,6 +13,7 @@ public abstract class PaddleMovement : MonoBehaviour
     protected Vector3 _Position;
 
 
+
     private void OnEnable()
     {
         _Rigidbody2D = GetComponent<Rigidbody2D>();
@@ -26,22 +27,19 @@ public abstract class PaddleMovement : MonoBehaviour
 
     private void Update()
     {
+        MovePaddle();
         SetPaddleMovement();
     }
 
     private void FixedUpdate()
     {
-        MovePaddle();
+        
     }
 
-    public abstract void MovePaddle();
+    protected abstract void MovePaddle();
 
-    protected void SetPaddleMovement()
-    {
-        _Rigidbody2D.velocity = _Movement * Speed;
-        ClampTransform();
-    }
-    
+    protected abstract void SetPaddleMovement();
+
     protected void ClampTransform()
     {
         var clampX = Math.Clamp(transform.position.x, _LeftClampPos, _RightClampPos);

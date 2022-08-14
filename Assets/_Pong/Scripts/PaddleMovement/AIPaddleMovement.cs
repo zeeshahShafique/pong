@@ -4,22 +4,31 @@ public class AIPaddleMovement : PaddleMovement
 {
     [SerializeField] private Rigidbody2D _BallRigidbody2D;
 
-    public override void MovePaddle()
+    protected override void MovePaddle()
     {
         if (_BallRigidbody2D.velocity.y > 0f && _BallRigidbody2D.transform.position.y > 0)
         {
             if (_BallRigidbody2D.transform.position.x > transform.position.x)
             {
-                _Movement = Vector2.right;
+                _Movement = _BallRigidbody2D.transform.position;
             }
             else if (_BallRigidbody2D.transform.position.x < transform.position.x)
             {
-                _Movement = Vector2.left;
+                _Movement = _BallRigidbody2D.transform.position;
             }
         }
-        else
-        {
-            _Movement = Vector2.zero;
-        }
+        _Movement.y = transform.localPosition.y;
+    }
+
+    protected override void SetPaddleMovement()
+    {
+        // _Rigidbody2D.velocity = _Movement * Speed;
+        // ClampTransform();
+        
+        float distance = Vector2.Distance(transform.localPosition, _Movement);
+        transform.localPosition = Vector3.Lerp(transform.localPosition,
+            _Movement,
+            Time.deltaTime * Speed * distance);
+        ClampTransform();
     }
 }

@@ -1,25 +1,25 @@
-using System.Diagnostics.Tracing;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class InputController : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
+public class InputController : MonoBehaviour
 {
-    public static Vector2 Input;
-    
-    public void OnPointerDown(PointerEventData eventData)
+    public static Vector2 InputPos;
+    public static bool Enabled = false;
+
+    private Camera _mainCam;
+
+    private void Start()
     {
-        Input = Vector2.zero;
-        OnDrag(eventData);
+        _mainCam = Camera.main;
     }
 
-    public void OnDrag(PointerEventData eventData)
+    private void Update()
     {
-        Input = eventData.pressPosition - eventData.position;
-        Input = Input.normalized;
-    }
+        // Debug.Log(Input.touchCount);
+        if (!Enabled) return;
 
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        Input = Vector2.zero;
+        if (Input.touchCount<=0) return;
+
+        InputPos = Input.GetTouch(0).position;
+        InputPos = _mainCam.ScreenToWorldPoint(InputPos);
     }
 }

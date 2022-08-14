@@ -1,8 +1,19 @@
+using UnityEngine;
+
 public class PlayerPaddleMovement : PaddleMovement
 {
-    public override void MovePaddle()
+    protected override void MovePaddle()
     {
-        _Movement.x = -InputController.Input.x;
-        _Movement.y = 0;
+        _Movement.x = InputController.InputPos.x;
+        _Movement.y = transform.localPosition.y;
+    }
+
+    protected override void SetPaddleMovement()
+    {
+        float distance = Vector2.Distance(transform.localPosition, _Movement);
+        transform.localPosition = Vector3.Lerp(transform.localPosition,
+            _Movement,
+            Time.deltaTime * 2 + distance);
+        ClampTransform();
     }
 }
